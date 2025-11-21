@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movilidad Eléctrica en Antioquia y otros Municipios</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="description"
+        content="Información, estaciónes de carga, incentivos y estadísticas sobre movilidad eléctrica en Antioquia. Interactivo y con tema verde." />
+</head>
+
+<body>
+
+    <div class="container" role="main">
+        <header class="site-header">
+            <div class="logo">ME</div>
+            <div>
+                <h1 class="site-title">Movilidad Eléctrica en Antioquia y otros Municipios</h1>
+                <p class="site-sub">Interactivo — Datos, estaciones y recursos (2025)</p>
+            </div>
+        </header>
+
+        <img class="hero-img" alt="Coche eléctrico en Medellín" src="../assets/img/electrolinera.webp">
+
+        <section id="incentivos">
+            <h2>Incentivos y políticas</h2>
+            <div class="post-content">
+                <ul>
+                    <li><strong>Exención de Pico y Placa</strong> para vehículos 100% eléctricos en el área
+                        metropolitana.</li>
+                    <li><strong>Incentivos Nacionales</strong>: IVA y aranceles reducidos en vehículos eléctricos
+                        nuevos.</li>
+                    <li><strong>Planes de expansión</strong> de redes de carga por operadores locales (EPM y aliados).
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="resumen" class="post-hero">
+            <div class="post-content"
+                style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent);">
+                <h2 style="color: var(--accent-2); font-size: 1.8rem; margin-bottom: 1rem; font-weight: 700;">
+                    🚗⚡ Bienvenido a la Movilidad del Futuro
+                </h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-bottom: 1rem;">
+                    <strong style="color: var(--accent-2); font-size: 1.15rem;">Antioquia avanza como líder en movilidad
+                        eléctrica en Colombia.</strong>
+                </p>
+                <p style="font-size: 1rem; line-height: 1.7; color: var(--text); margin-bottom: 1rem;">
+                    Bienvenido a este espacio donde podrás <strong style="color: var(--accent);">descubrir las
+                        estaciones de carga disponibles</strong>, acceder a <strong style="color: var(--accent);">datos
+                        actualizados</strong> y explorar <strong style="color: var(--accent);">herramientas
+                        interactivas</strong> para tus recorridos.
+                </p>
+                <p style="font-size: 1rem; line-height: 1.7; color: var(--text); margin-bottom: 1.5rem;">
+                    Además, este sitio busca convertirse en un <strong style="color: var(--accent);">punto de encuentro
+                        para la comunidad eléctrica</strong>, un lugar para compartir experiencias, resolver dudas y
+                    fortalecer juntos una movilidad más sostenible.
+                </p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="Cuestionario.html" class="btn"
+                        style="display: inline-block; font-size: 1rem; padding: 12px 24px; text-decoration: none;">
+                        📝 Comparte tu Experiencia
+                    </a>
+                    <p style="font-size: 0.85rem; color: var(--muted); margin-top: 0.75rem;">
+                        Ayúdanos a mejorar respondiendo nuestro cuestionario
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Gráficos Preview -->
+        <section id="graficos-preview" style="margin: 3rem 0;">
+            <h2 style="text-align: center; color: var(--accent-2); margin-bottom: 1.5rem;">📊 Análisis de Datos</h2>
+
+            <!-- Navegación de gráficos -->
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                <button class="chart-nav-btn active" data-chart="0"
+                    style="padding: 8px 16px; border-radius: 8px; border: 2px solid var(--accent); background: var(--accent); color: white; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    Parque Eléctrico
+                </button>
+                <button class="chart-nav-btn" data-chart="1"
+                    style="padding: 8px 16px; border-radius: 8px; border: 2px solid var(--accent); background: white; color: var(--accent); cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    Market Share
+                </button>
+                <button class="chart-nav-btn" data-chart="2"
+                    style="padding: 8px 16px; border-radius: 8px; border: 2px solid var(--accent); background: white; color: var(--accent); cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    Costos de Carga
+                </button>
+                <button class="chart-nav-btn" data-chart="3"
+                    style="padding: 8px 16px; border-radius: 8px; border: 2px solid var(--accent); background: white; color: var(--accent); cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    Consumo Energético
+                </button>
+            </div>
+
+            <!-- Contenedor de gráficos -->
+            <div class="card" style="padding: 2rem; min-height: 400px;">
+                <div class="chart-container active" data-chart-id="0">
+                    <h3 style="text-align: center; color: var(--accent-2); margin-bottom: 1rem;">Distribución del Parque
+                        Eléctrico Motorizado</h3>
+                    <canvas id="previewChart1"></canvas>
+                    <p style="font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 1rem;">
+                        Basado en cantidad estimada de vehículos (Excluyendo Híbridos y Micromovilidad)
+                    </p>
+                </div>
+
+                <div class="chart-container" data-chart-id="1" style="display: none;">
+                    <h3 style="text-align: center; color: var(--accent-2); margin-bottom: 1rem;">Market Share (BEV) -
+                        Cantidad Estimada</h3>
+                    <canvas id="previewChart2"></canvas>
+                    <p style="font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 1rem;">
+                        Representa el parque activo de carros eléctricos puros (BEV)
+                    </p>
+                </div>
+
+                <div class="chart-container" data-chart-id="2" style="display: none;">
+                    <h3 style="text-align: center; color: var(--accent-2); margin-bottom: 1rem;">Comparación de Costo
+                        Energético (COP/100 km)</h3>
+                    <canvas id="previewChart3"></canvas>
+                    <p style="font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 1rem;">
+                        Comparación de costos estimados para recarga doméstica vs. pública
+                    </p>
+                </div>
+
+                <div class="chart-container" data-chart-id="3" style="display: none;">
+                    <h3 style="text-align: center; color: var(--accent-2); margin-bottom: 1rem;">Consumo Promedio de
+                        Energía (kWh/100 km)</h3>
+                    <canvas id="previewChart4"></canvas>
+                    <p style="font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 1rem;">
+                        Muestra la eficiencia energética promedio por tipo de vehículo
+                    </p>
+                </div>
+            </div>
+
+            <!-- Botón para ver análisis completo -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="portal_analisis.html" class="btn"
+                    style="display: inline-block; font-size: 1rem; padding: 12px 24px; text-decoration: none;">
+                    📈 Ver Análisis Completo
+                </a>
+                <p style="font-size: 0.85rem; color: var(--muted); margin-top: 0.75rem;">
+                    Explora todos los gráficos y datos detallados
+                </p>
+            </div>
+        </section>
+
+        <section id="estaciones">
+            <h2>Explorar estaciones de carga</h2>
+            <div class="controls">
+                <select id="typeFilter" aria-label="Filtrar por tipo">
+                    <option value="all">Todos los tipos</option>
+                </select>
+                <select id="municipioFilter" aria-label="Filtrar por municipio">
+                    <option value="all">Todos los municipios</option>
+                </select>
+            </div>
+
+            <div id="stations-grid" class="grid-stations">
+                <!-- Cards generadas por JS -->
+            </div>
+        </section>
+
+        <!-- Modal para imagen/detalle -->
+        <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal-content">
+                <button id="modal-close" class="modal-close" aria-label="Cerrar">×</button>
+                <img id="modal-img" alt="Imagen estación" src="" />
+                <div id="modal-info"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-section-contact">
+                <h3>Contacto</h3>
+                <p>Portal Electrolineras</p>
+                <p>Dirección: Calle Falsa 123, Medellín, Colombia</p>
+                <p>Tel: <a href="tel:+5740000000">+57 4 000 0000</a></p>
+                <p>Email: <a href="mailto:info@electrolineras.example">info@electrolineras.example</a></p>
+            </div>
+            <div class="footer-section-legal">
+                <h3>Legal</h3>
+                <a href="#">Política de privacidad</a>
+                <a href="#">Términos y condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Portal Electrolineras. Todos los derechos reservados.</p>
+            <div class="social">
+                <p>Síguenos: </p>
+                <a href=""><img src="../assets/img/Instagram.png" alt="Instagram"></a>
+                <a href=""><img src="../assets/img/Facebook.png" alt="Facebook"></a>
+                <a href=""><img src="../assets/img/x.png" alt="X"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="../js/stations.js"></script>
+    <script src="../js/charts-preview.js"></script>
+</body>
+
+</html>

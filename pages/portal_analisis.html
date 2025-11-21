@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Electrolineras - Analisis de datos</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* Variables de color - Paleta verde esmeralda (Tomado de styles_css_updated.css y formulario_informacion.html) */
+        :root {
+            --color-primary: #059669;
+            /* emerald-600 */
+            --color-secondary: #34d399;
+            /* emerald-400 */
+            --color-accent: #10b981;
+            /* emerald-500 */
+            --color-bg: #f0fff4;
+            /* green-50 */
+            --color-bg-light: #f7fafc;
+            --color-white: #ffffff;
+            --color-gray-300: #d1d5db;
+            --color-gray-500: #6b7280;
+            --color-gray-700: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg-light);
+        }
+
+        /* Header (Estilo unificado con el formulario) */
+        .site-header {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+            max-width: 900px;
+            margin: 20px auto 20px auto;
+        }
+
+        .site-header .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .site-title {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-white);
+        }
+
+        .site-sub {
+            margin: 0.25rem 0 0 0;
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        h1,
+        h2 {
+            color: var(--color-primary);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+            max-width: 900px;
+            margin: 2rem auto;
+            border: 2px solid var(--color-primary);
+        }
+
+        /* Estilos de Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-card {
+            background-color: var(--color-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--color-secondary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            min-height: 350px;
+            /* Altura mínima para gráficos */
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+            min-height: 400px;
+        }
+
+        .chart-card h3 {
+            color: var(--color-primary);
+            font-size: 1.25rem;
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        /* Estilos de leyenda y notas */
+        .chart-note {
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .site-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.25rem;
+                max-width: 95%;
+            }
+
+            .site-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="logo"><img src="../assets/img/iCONO BOTON.png" alt="Logo Portal Electrolineras"></div>
+        <div>
+            <h1 class="site-title">Portal Electrolineras - Analisis de datos</h1>
+            <p class="site-sub">Datos de Vehículos Eléctricos y Costos de Carga en Antioquia</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Visualización de Datos Clave (Estimados 2025)</h2>
+
+        <div class="dashboard-grid">
+
+            <div class="chart-card">
+                <h3>1. Distribución del Parque Eléctrico Motorizado</h3>
+                <canvas id="pieChartParque"></canvas>
+                <p class="chart-note">Basado en Cantidad Estimada de Vehículos (Excluyendo Híbridos y Micromovilidad).
+                </p>
+            </div>
+
+            <div class="chart-card">
+                <h3>2. Market Share (BEV) - Cantidad Estimada</h3>
+                <canvas id="barChartMarcasBEV"></canvas>
+                <p class="chart-note">Representa el Parque Activo de Carros Eléctricos Puros (BEV).</p>
+            </div>
+
+            <div class="chart-card full-width">
+                <h3>3. Comparación de Costo Energético (COP/100 km)</h3>
+                <canvas id="areaChartCostoCarga"></canvas>
+                <p class="chart-note">Comparación de costos estimados para recarga doméstica (Estrato Alto) vs. pública.
+                </p>
+            </div>
+
+            <div class="chart-card full-width">
+                <h3>4. Consumo Promedio de Energía (kWh/100 km)</h3>
+                <canvas id="barChartConsumo"></canvas>
+                <p class="chart-note">Muestra la eficiencia energética promedio por tipo de vehículo.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Se verifica la disponibilidad de Chart.js
+            if (typeof Chart === 'undefined') {
+                console.error("Chart.js no está cargado. Verifique que la conexión a internet y el enlace en <head> sean correctos.");
+                return;
+            }
+
+            // =========================================================================
+            // DATOS EXTRAÍDOS Y ESTRUCTURADOS DEL ARCHIVO CSV
+            // =========================================================================
+
+            // Datos para Gráfico 1: Distribución del Parque Motorizado (Carros BEV, Motos, Flotas)
+            const dataParqueMotorizado = {
+                labels: ['Carros BEV', 'Motos Eléctricas', 'Flotas/Comercial/Taxi'],
+                quantities: [4500, 1800, 300] //
+            };
+
+            // Datos para Gráfico 2: Market Share (BEV) por Marca
+            const dataMarcasBEV = {
+                labels: ['BYD', 'Kia', 'Volvo', 'Chevrolet', 'BMW', 'Renault', 'Otras'],
+                quantities: [2500, 450, 300, 250, 150, 100, 750] //
+            };
+
+            // Datos para Gráfico 3 y 4: Comparación de Costos y Consumo (kWh/100 km)
+            const dataComparacion = {
+                labels: ['Carro BEV (SUV/Compacto)', 'Híbrido (PHEV - Modo EV)', 'Flota/Comercial', 'Moto Eléctrica', 'Patineta Eléctrica', 'Bicicleta Eléctrica'],
+                consumo: [18, 16, 25, 4, 1, 0.5], // kWh/100 km
+                costoDomestico: [17100, 15200, 23750, 3800, 950, 475], // COP/100 km
+                costoPublico: [22734, 20208, 31575, 5052, 1263, 632] // COP/100 km
+            };
+
+
+            // =========================================================================
+            // CONFIGURACIÓN DE GRÁFICOS
+            // =========================================================================
+            const primaryColor = 'rgba(5, 150, 105, 1)'; // var(--color-primary)
+            const secondaryColor = 'rgba(52, 211, 153, 1)'; // var(--color-secondary)
+            const accentColor = 'rgba(16, 185, 129, 1)'; // var(--color-accent)
+
+
+            // --- GRÁFICO 1: PIE CHART (Distribución del Parque Motorizado) ---
+            new Chart(document.getElementById('pieChartParque'), {
+                type: 'pie',
+                data: {
+                    labels: dataParqueMotorizado.labels,
+                    datasets: [{
+                        label: 'Cantidad (Estimada)',
+                        data: dataParqueMotorizado.quantities,
+                        backgroundColor: [
+                            primaryColor,
+                            secondaryColor,
+                            accentColor
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: { label: (context) => `${context.label}: ${context.raw.toLocaleString()} unidades` } }
+                    }
+                }
+            });
+
+
+            // --- GRÁFICO 2: BAR CHART (Market Share BEV) ---
+            new Chart(document.getElementById('barChartMarcasBEV'), {
+                type: 'bar',
+                data: {
+                    labels: dataMarcasBEV.labels,
+                    datasets: [{
+                        label: 'Unidades Estimadas',
+                        data: dataMarcasBEV.quantities,
+                        backgroundColor: primaryColor,
+                        borderColor: primaryColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Barras horizontales
+                    responsive: true,
+                    scales: {
+                        x: { beginAtZero: true }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => `Unidades: ${context.raw.toLocaleString()}` } }
+                    }
+                }
+            });
+
+            // --- GRÁFICO 3: LINE/AREA CHART (Costo de Carga COP/100 km) ---
+            new Chart(document.getElementById('areaChartCostoCarga'), {
+                type: 'line', // Usamos 'line' con 'fill: true' para un Area Chart
+                data: {
+                    labels: dataComparacion.labels,
+                    datasets: [
+                        {
+                            label: 'Carga Doméstica (~$950/kWh)',
+                            data: dataComparacion.costoDomestico,
+                            backgroundColor: 'rgba(5, 150, 105, 0.4)', // Color primario transparente
+                            borderColor: primaryColor,
+                            tension: 0.3,
+                            fill: true,
+                        },
+                        {
+                            label: 'Carga Pública (~$1.263/kWh)',
+                            data: dataComparacion.costoPublico,
+                            backgroundColor: 'rgba(52, 211, 153, 0.4)', // Color secundario transparente
+                            borderColor: secondaryColor,
+                            tension: 0.3,
+                            fill: true,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    interaction: { mode: 'index', intersect: false },
+                    stacked: false,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Costo (COP)' },
+                            ticks: { callback: (value) => value.toLocaleString() } // Formato de miles
+                        },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        tooltip: { callbacks: { label: (context) => `${context.dataset.label}: $${context.raw.toLocaleString()}` } }
+                    }
+                }
+            });
+
+            // --- GRÁFICO 4: BAR CHART (Consumo kWh/100 km) ---
+            new Chart(document.getElementById('barChartConsumo'), {
+                type: 'bar',
+                data: {
+                    labels: dataComparacion.labels,
+                    datasets: [{
+                        label: 'Consumo (kWh/100 km)',
+                        data: dataComparacion.consumo,
+                        backgroundColor: primaryColor,
+                        borderColor: primaryColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Consumo (kWh)' }
+                        },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => `${context.raw} kWh/100 km` } }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="mt-10 p-4 text-center text-sm text-gray-500 border-t border-gray-300">
+        <p>Este formulario es para recopilar información sobre la percepción de la movilidad eléctrica en Antioquia, así
+            poder hacer mejoras en el sistema.</p>
+</body>
+
+</html>

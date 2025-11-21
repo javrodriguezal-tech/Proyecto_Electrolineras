@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Electrolineras - Estaciones de carga en Área Metropolitana "Medellín"</title>
+    <style>
+        /* Variables de color - Paleta verde esmeralda */
+        :root {
+            --color-primary: #059669;
+            --color-secondary: #34d399;
+            --color-accent: #10b981;
+            --color-bg: #f0fff4;
+            --color-bg-light: #f7fafc;
+            --color-white: #ffffff;
+            --color-gray-300: #d1d5db;
+            --color-gray-500: #6b7280;
+            --color-gray-700: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--color-bg-light);
+        }
+
+        .container {
+            background-color: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+            max-width: 900px;
+            margin: auto;
+            border: 2px solid var(--color-primary);
+        }
+
+        /* Header */
+        .site-header {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+        }
+
+        .site-header .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .site-title {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-white);
+        }
+
+        .site-sub {
+            margin: 0.25rem 0 0 0;
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        h1,
+        h2 {
+            color: var(--color-primary);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Form styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-gray-700);
+            font-size: 0.95rem;
+        }
+
+        .small {
+            font-size: 0.85rem;
+            color: var(--color-gray-500);
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background-color: var(--color-white);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+        }
+
+        input[type="radio"] {
+            margin-right: 0.5rem;
+            accent-color: var(--color-accent);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        input[type="radio"]+label {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Radio buttons container */
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        /* Map placeholder */
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+            color: var(--color-primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            border: 2px solid var(--color-primary);
+            grid-column: 1 / -1;
+        }
+
+        /* Button */
+        button {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            padding: 0.85rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: inherit;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-container {
+            grid-column: 1 / -1;
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .vehicle-section {
+            grid-column: 1 / -1;
+            background-color: var(--color-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--color-secondary);
+        }
+
+        .vehicle-section h2 {
+            margin-top: 0;
+            border-bottom: none;
+            color: var(--color-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                width: 95%;
+                margin: 1rem auto;
+                padding: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .site-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.25rem;
+            }
+
+            .site-title {
+                font-size: 1.5rem;
+            }
+
+            .site-sub {
+                font-size: 0.9rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .map-placeholder {
+                height: 300px;
+                font-size: 1rem;
+            }
+
+            .btn-container {
+                text-align: center;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                width: 95%;
+                margin: 0.5rem auto;
+                padding: 1rem;
+            }
+
+            .site-header .logo img {
+                height: 45px;
+            }
+        }
+
+        /* Footer Styles */
+        .site-footer {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+            background-color: var(--color-bg);
+            font-size: 0.9rem;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-inner {
+            background-color: var(--color-bg);
+            padding: 2rem;
+            display: flex;
+            gap: 3rem;
+            justify-content: space-around;
+        }
+
+        .footer-inner h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.1rem;
+            color: var(--color-gray-700);
+            font-weight: 700;
+        }
+
+        .footer-inner p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+            color: var(--color-gray-700);
+        }
+
+        .footer-inner a {
+            color: var(--color-gray-700);
+            text-decoration: none;
+            display: block;
+            margin: 0.25rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer-inner a:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            border-radius: 20px;
+            padding: 0.5%;
+            background-color: var(--color-accent);
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--color-gray-700);
+        }
+
+        .social {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .social p {
+            margin: 0;
+            color: var(--color-gray-700);
+            font-weight: 600;
+        }
+
+        .social img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .social img:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .site-footer {
+                width: 95%;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .social {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div class="logo"><img src="../assets/img/iCONO BOTON.png" alt="Logo Portal Electrolineras"></div>
+            <div>
+                <h1 class="site-title">Portal Electrolineras</h1>
+                <p class="site-sub">Estaciones de carga</p>
+            </div>
+        </header>
+
+        <form aria-label="Formulario de contacto" class="form-grid" action="MovilidadElectrica.html">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+            <div class="form-group">
+                <label for="celular">Celular <span class="small">(10 dígitos)</span></label>
+                <input type="tel" id="celular" name="celular" pattern="[0-9]{10}" placeholder="Ej: 3001234567" required>
+            </div>
+
+            <div class="form-group">
+                <label for="municipio">Municipio</label>
+                <input type="text" id="municipio" name="municipio" required>
+            </div>
+
+            <div class="form-group">
+                <label for="departamento">Departamento</label>
+                <input type="text" id="departamento" name="departamento" required>
+            </div>
+            <div class="form-group">
+                <label for="pais">País</label>
+                <select id="pais" name="pais" required>
+                    <option value="" disabled>Seleccione un país</option>
+                    <option value="Colombia" selected>Colombia</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Brasil">Brasil</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Cuba">Cuba</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="El Salvador">El Salvador</option>
+                    <option value="España">España</option>
+                    <option value="Estados Unidos">Estados Unidos</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="Honduras">Honduras</option>
+                    <option value="México">México</option>
+                    <option value="Nicaragua">Nicaragua</option>
+                    <option value="Panamá">Panamá</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Perú">Perú</option>
+                    <option value="Puerto Rico">Puerto Rico</option>
+                    <option value="República Dominicana">República Dominicana</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Venezuela">Venezuela</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="vehicle-section">
+                <h2>Información de vehículo eléctrico</h2>
+                <div class="form-row">
+                    <div>
+                        <label>¿Posee vehículo eléctrico?</label>
+                        <div class="radio-group">
+                            <div>
+                                <input type="radio" id="si_ve" name="posee_ve" value="si">
+                                <label for="si_ve">Sí</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="no_ve" name="posee_ve" value="no" checked>
+                                <label for="no_ve">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <label for="tipo_conexion_ve">Tipo de conexión</label>
+                        <select id="tipo_conexion_ve" name="tipo_conexion_ve">
+                            <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="tipo1">Tipo 1 (SAE J1772)</option>
+                            <option value="tipo2">Tipo 2 (Mennekes)</option>
+                            <option value="ccs1">CCS Combo 1</option>
+                            <option value="ccs2">CCS Combo 2</option>
+                            <option value="chademo">CHAdeMO</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d63459.37499516786!2d-75.5886260227539!3d6.235903230552304!3m2!1i1024!2i768!4f13.1!2m1!1selectrolineras%20medellin!5e0!3m2!1ses!2sco!4v1763598213734!5m2!1ses!2sco"
+                width="100%" height="auto" class="map-placeholder" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+            <div class="btn-container">
+                <button type="submit" class="btn">Enviar Información</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-section-contact">
+                <h3>Contacto</h3>
+                <p>Portal Electrolineras</p>
+                <p>Dirección: Calle Falsa 123, Medellín, Colombia</p>
+                <p>Tel: <a href="tel:+5740000000">+57 4 000 0000</a></p>
+                <p>Email: <a href="mailto:info@electrolineras.example">info@electrolineras.example</a></p>
+            </div>
+            <div class="footer-section-legal">
+                <h3>Legal</h3>
+                <a href="#">Política de privacidad</a>
+                <a href="#">Términos y condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Portal Electrolineras. Todos los derechos reservados.</p>
+            <div class="social">
+                <p>Síguenos: </p>
+                <a href=""><img src="../assets/img/Instagram.png" alt="Instagram"></a>
+                <a href=""><img src="../assets/img/Facebook.png" alt="Facebook"></a>
+                <a href=""><img src="../assets/img/x.png" alt="X"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

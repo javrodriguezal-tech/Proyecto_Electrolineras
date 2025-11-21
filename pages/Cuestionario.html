@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario - Movilidad Eléctrica Antioquia</title>
+    <link rel="stylesheet" href="../css/styles2_css_updated.css">
+    <style>
+        /* Estilos específicos para recrear la estructura de grid sin Tailwind */
+        .cuestionario-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+            margin-bottom: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .form-section h2 {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .full-width {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--color-gray-700);
+            font-size: 0.95rem;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+        }
+
+        .btn-submit-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(5, 150, 105, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Portal Electrolineras</h1>
+        <img src="../assets/img/iCONO BOTON.png" alt="">
+    </header>
+
+    <main class="cuestionario-container">
+        <div class="texto_articulo" style="margin-bottom: 2rem; border: none; box-shadow: none; padding: 0;">
+            <article
+                style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15); border: 2px solid var(--color-primary);">
+                <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem;">Tu Voz en la Movilidad Eléctrica
+                </h2>
+                <p style="text-align: center; font-size: 1.1rem;">¡Ayúdanos a comprender mejor tus necesidades y
+                    experiencias!</p>
+            </article>
+        </div>
+
+        <form action="#" method="POST">
+
+            <!-- SECCIÓN 1: INFORMACIÓN DEL USUARIO -->
+            <div class="form-section">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Información del Usuario y Vehículo
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tipo_vehiculo">¿Qué tipo de vehículo eléctrico usas o te gustaría tener?</label>
+                        <select id="tipo_vehiculo" name="tipo_vehiculo" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="carro_bev">Carro Eléctrico Puro (BEV)</option>
+                            <option value="carro_hev">Carro Híbrido (HEV/PHEV)</option>
+                            <option value="moto">Moto Eléctrica</option>
+                            <option value="bicicleta">Bicicleta Eléctrica</option>
+                            <option value="patineta">Patineta Eléctrica</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experiencia">Nivel de Experiencia con Movilidad Eléctrica:</label>
+                        <select id="experiencia" name="experiencia" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="propietario">Soy propietario</option>
+                            <option value="interesado">Estoy interesado en adquirir uno</option>
+                            <option value="curioso">Solo por curiosidad/investigación</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="comentarios_generales">Comentarios generales sobre tu experiencia o interés:</label>
+                        <textarea id="comentarios_generales" name="comentarios_generales" rows="3"
+                            placeholder="Ej: Me gustaría saber más sobre la autonomía..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: CARGA ELÉCTRICA -->
+            <div class="form-section">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                    </svg>
+                    Carga Eléctrica y Estaciones
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="frecuencia_carga">¿Dónde cargas tu vehículo principalmente?</label>
+                        <select id="frecuencia_carga" name="frecuencia_carga" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="casa">En casa/residencia</option>
+                            <option value="trabajo">En el trabajo</option>
+                            <option value="publica_lenta">Estaciones públicas AC (lenta)</option>
+                            <option value="publica_rapida">Estaciones públicas DC (rápida)</option>
+                            <option value="no_aplica">No aplica (no tengo VE)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="satisfaccion_carga">¿Cómo calificas la disponibilidad de cargadores?</label>
+                        <select id="satisfaccion_carga" name="satisfaccion_carga">
+                            <option value="">Califica del 1 (Mala) al 5 (Excelente)</option>
+                            <option value="1">1 (Muy mala)</option>
+                            <option value="2">2 (Mala)</option>
+                            <option value="3">3 (Regular)</option>
+                            <option value="4">4 (Buena)</option>
+                            <option value="5">5 (Excelente)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="sugerencias_carga">Sugerencias para mejorar la infraestructura:</label>
+                        <textarea id="sugerencias_carga" name="sugerencias_carga" rows="3"
+                            placeholder="Ej: Más puntos en centros comerciales..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: MICROMOVILIDAD -->
+            <div class="form-section">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18.5" cy="17.5" r="3.5"></circle>
+                        <circle cx="5.5" cy="17.5" r="3.5"></circle>
+                        <circle cx="15" cy="5" r="1"></circle>
+                        <path d="M12 17.5V14l-3-3 4-3 2 3h2"></path>
+                    </svg>
+                    Micromovilidad y Percepción
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="uso_micromovilidad">¿Utilizas patinetas o bicicletas eléctricas?</label>
+                        <select id="uso_micromovilidad" name="uso_micromovilidad">
+                            <option value="">Selecciona una opción</option>
+                            <option value="si_personal">Sí, de uso personal</option>
+                            <option value="si_alquiler">Sí, servicios de alquiler</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="barreras_adopcion">Principal barrera para adoptar un VE:</label>
+                        <select id="barreras_adopcion" name="barreras_adopcion">
+                            <option value="">Selecciona una opción</option>
+                            <option value="costo_inicial">Costo inicial alto</option>
+                            <option value="autonomia">Autonomía insuficiente</option>
+                            <option value="infraestructura">Falta de infraestructura</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                            <option value="informacion">Falta de información</option>
+                            <option value="ninguna">Ninguna</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="sugerencias_generales">Otras sugerencias:</label>
+                        <textarea id="sugerencias_generales" name="sugerencias_generales" rows="3"
+                            placeholder="Ej: Más incentivos para empresas..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-submit-container">
+                <button type="submit" class="btn-primary">
+                    Enviar Comentarios
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-section-contact">
+                <h3>Contacto</h3>
+                <p>Portal Electrolineras</p>
+                <p>Dirección: Calle Falsa 123, Medellín, Colombia</p>
+                <p>Tel: <a href="tel:+5740000000">+57 4 000 0000</a></p>
+                <p>Email: <a href="mailto:info@electrolineras.example">info@electrolineras.example</a></p>
+            </div>
+            <div class="footer-section-legal">
+                <h3>Legal</h3>
+                <a href="#">Política de privacidad</a>
+                <a href="#">Términos y condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Portal Electrolineras. Todos los derechos reservados.</p>
+            <div class="social">
+                <p>Síguenos: </p>
+                <a href=""><img src="../assets/img/Instagram.png" alt=""></a>
+                <a href=""><img src="../assets/img/Facebook.png" alt=""></a>
+                <a href=""><img src="../assets/img/x.png" alt=""></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
